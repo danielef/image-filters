@@ -30,6 +30,14 @@ def threshold(img):
     ans = cv2.threshold(img, 60, 255, cv2.THRESH_BINARY_INV)
     return ans
 
+def decolor(img):
+    gray = np.zeros(img.shape, np.uint8)
+    gray = cv2.cvtColor(gray, cv2.CV_8UC1)
+    color_boost = np.zeros(img.shape, np.uint8)
+    color_boost = cv2.cvtColor(color_boost, cv2.CV_8UC3)
+    decolor = cv2.decolor(img, gray, color_boost)
+    return decolor
+    
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--visual', action='store_true', help='open graphical view of processed images')
@@ -46,11 +54,15 @@ if __name__ == '__main__':
     sobel = sobel(blur)
     _, _threshold= threshold(sobel)
     _, t2 = threshold(grey2)
+    grayscale, color_boost = decolor(original)
+    
 
     print('blur: {}'.format(blur))
     print('sobel: {}'.format(sobel))
     print('threshold: {}'.format(_threshold))
+    print('grayscale: {}'.format(grayscale))
+    print('color_boost: {}'.format(color_boost))
 
-    __show((grey2, blur, sobel, _threshold, t2), True)
+    __show((grey2, grayscale, color_boost[:,:,0],blur, sobel, _threshold, t2), True)
     
     
