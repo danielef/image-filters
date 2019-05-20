@@ -4,8 +4,13 @@ import numpy as np
 
 def __show(imgs, show, title='image'):
     matrix = np.concatenate(imgs, axis=1)
+    matrix2 = np.concatenate(imgs, axis=1)
+    print(matrix)
+    m2 = np.concatenate((matrix, matrix2))
+    print('concatenate2:')
+    print(m2)
     if show:
-        cv2.imshow(title, matrix)
+        cv2.imshow(title, m2)
         cv2.waitKey(0) 
         cv2.destroyAllWindows()
 
@@ -47,22 +52,38 @@ if __name__ == '__main__':
     if args.path is None:
         parser.print_help()
         exit(1)
-
+        
     original = read_image(args.path, args.visual)
-    grey2, grey3 = grey(original)
-    blur = blur(grey2)
-    sobel = sobel(blur)
-    _, _threshold= threshold(sobel)
-    _, t2 = threshold(grey2)
+    
+    # Using default cvtColor to grey
+    grey_2chan, grey_3chan = grey(original)
+    grey2blur = blur(grey_2chan)
+    grey2sobel = sobel(grey2blur)
+    _, grey2threshold = threshold(grey2sobel)
+    
+    # decolor
     grayscale, color_boost = decolor(original)
     
+    # Using grayscale
+    gs2blur = blur(grayscale)
+    gs2sobel = sobel(gs2blur)
+    _, gs2threshold = threshold(gs2sobel)
 
-    print('blur: {}'.format(blur))
-    print('sobel: {}'.format(sobel))
-    print('threshold: {}'.format(_threshold))
-    print('grayscale: {}'.format(grayscale))
-    print('color_boost: {}'.format(color_boost))
+    # Double decolor
+    color_boost2, _ = decolor(color_boost)
+    cb2blur = blur(color_boost2)
+    cb2sobel = sobel(cb2blur)
+    _, cb2threshold = threshold(cb2sobel)
 
-    __show((grey2, grayscale, color_boost[:,:,0],blur, sobel, _threshold, t2), True)
+    normal = np.concatenate((grey_2chan, grey2blur, grey2sobel, grey2threshold), axis=1)
+    decolors = np.concatenate((grayscale, gs2blur, gs2sobel, gs2threshold), axis=1)
+    decolorx2 = np.concatenate((color_boost2, cb2blur, cb2sobel, cb2threshold), axis=1)
+            
+    cv2.imshow('normal', normal)
+    cv2.imshow('decolors', decolors)
+    cv2.imshow('decolorx2', decolorx2)
+    cv2.waitKey(0) 
+    cv2.destroyAllWindows()
+    
     
     
