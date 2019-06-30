@@ -47,6 +47,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--visual', action='store_true', help='open graphical view of processed images')
     parser.add_argument('-p', '--path', help='image to filter')
+    
     args = parser.parse_args()
     
     if args.path is None:
@@ -56,32 +57,32 @@ if __name__ == '__main__':
     original = read_image(args.path, args.visual)
     
     # Using default cvtColor to grey
-    grey_2chan, grey_3chan = grey(original)
-    grey2blur = blur(grey_2chan)
-    grey2sobel = sobel(grey2blur)
-    _, grey2threshold = threshold(grey2sobel)
+    #grey_2chan, grey_3chan = grey(original)
+    #grey2blur = blur(grey_2chan)
+    #grey2sobel = sobel(grey2blur)
+    #_, grey2threshold = threshold(grey2sobel)
     
     # decolor
     grayscale, color_boost = decolor(original)
     
     # Using grayscale
-    gs2blur = blur(grayscale)
-    gs2sobel = sobel(gs2blur)
-    _, gs2threshold = threshold(gs2sobel)
+    #gs2blur = blur(grayscale)
+    #gs2sobel = sobel(gs2blur)
+    #_, gs2threshold = threshold(gs2sobel)
 
     # Double decolor
-    color_boost2, _ = decolor(color_boost)
-    cb2blur = blur(color_boost2)
-    cb2sobel = sobel(cb2blur)
-    _, cb2threshold = threshold(cb2sobel)
+    #color_boost2, _ = decolor(color_boost)
+    #cb2blur = blur(color_boost2)
+    #cb2sobel = sobel(cb2blur)
+    #_, cb2threshold = threshold(cb2sobel)
 
-    normal = np.concatenate((grey_2chan, grey2blur, grey2sobel, grey2threshold), axis=1)
-    decolors = np.concatenate((grayscale, gs2blur, gs2sobel, gs2threshold), axis=1)
-    decolorx2 = np.concatenate((color_boost2, cb2blur, cb2sobel, cb2threshold), axis=1)
+    #normal = np.concatenate((grey_2chan, grey2blur, grey2sobel, grey2threshold), axis=1)
+    #decolors = np.concatenate((grayscale, gs2blur, gs2sobel, gs2threshold), axis=1)
+    #decolorx2 = np.concatenate((color_boost2, cb2blur, cb2sobel, cb2threshold), axis=1)
             
-    cv2.imshow('normal', normal)
-    cv2.imshow('decolors', decolors)
-    cv2.imshow('decolorx2', decolorx2)
+    cv2.imwrite('decolor-{}'.format(args.path), grayscale)
+    cv2.imwrite('color_boost-{}'.format(args.path), color_boost)
+
     cv2.waitKey(0) 
     cv2.destroyAllWindows()
     
