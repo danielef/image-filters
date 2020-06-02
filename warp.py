@@ -3,15 +3,14 @@ import numpy as np
 import sys
 import time
 
-video = '../../lab/Social-Distancing-Analyser/mall.mp4'
+video = './mall.mp4'
 try:
     cap = cv2.VideoCapture(video)
 
-    points = [
-                  (349, 18),
-                  (908, 12),
-                  (1265, 674),
-                  (15, 696)]
+    points = [(349, 18),
+              (908, 12),
+              (1265, 674),
+              (15, 696)]
 
     dest = [(0, 0), (600, 0), (600, 900), (0, 900)]
     M = cv2.getPerspectiveTransform(np.array(points, dtype=np.float32),
