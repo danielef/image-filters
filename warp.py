@@ -6,7 +6,14 @@ try:
     while True:
         image = cv2.imread('mall.png')
         image_resized = cv2.resize(image, (1280, 720))
-        cv2.circle(image_resized, 
+        points = [(15, 696),
+                  (349, 18),
+                  (908, 12),
+                  (1265, 674)]
+        cv2.circle(image_resized, points[0], 5, (0, 255, 255), -1)
+        cv2.circle(image_resized, points[1], 5, (255, 0, 255), -1)
+        cv2.circle(image_resized, points[2], 5, (255, 255, 0), -1)
+        cv2.circle(image_resized, points[3], 5, (0, 0, 255), -1)
 
         cv2.imshow('mall', image_resized)
         
