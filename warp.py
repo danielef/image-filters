@@ -4,8 +4,12 @@ import numpy
 try:
     while True:
         image = cv2.imread('mall.png')
+        image_resized = cv2.resize(image, (300, 300))
+        
 
-        cv2.imshow('mall', image)
+        cv2.imshow('mall', image_resized)
+
+        
 
         if cv2.waitKey(100) == 0x1b:
             print('ESC pressed. Exiting ...')
