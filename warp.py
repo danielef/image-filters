@@ -1,14 +1,15 @@
 import cv2
-import numpy
+import numpy as np
+import sys
 
 try:
     while True:
         image = cv2.imread('mall.png')
-        image_resized = cv2.resize(image, (300, 300))
-        
+        image_resized = cv2.resize(image, (1280, 720))
+        cv2.circle(image_resized, 
 
         cv2.imshow('mall', image_resized)
-
+        
         
 
         if cv2.waitKey(100) == 0x1b:
