@@ -17,7 +17,7 @@ try:
 
         for i in range(0, len(points)):
             j = i + 1 if i + 1 < len(points) else 0
-            cv2.line(image_resized,points[i], points[j], (0, 255, 0), 1)
+            cv2.line(image_resized,points[i], points[j], (255, 0, 0), 1)
 
         cv2.imshow('mall', image_resized)
         
