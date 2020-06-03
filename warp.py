@@ -5,13 +5,16 @@ import time
 
 video = './mall.mp4'
 try:
+    # Video Capturre
     cap = cv2.VideoCapture(video)
-
+    
+    # Source perspective points
     points = [(349, 18),
               (908, 12),
               (1265, 674),
               (15, 696)]
 
+    # Destination rectangle
     dest = [(0, 0), (600, 0), (600, 900), (0, 900)]
     M = cv2.getPerspectiveTransform(np.array(points, dtype=np.float32),
                                     np.array(dest, dtype=np.float32))
