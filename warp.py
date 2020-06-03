@@ -16,6 +16,8 @@ try:
 
     # Destination rectangle
     dest = [(0, 0), (600, 0), (600, 900), (0, 900)]
+
+    # Transformation matrix
     M = cv2.getPerspectiveTransform(np.array(points, dtype=np.float32),
                                     np.array(dest, dtype=np.float32))
 
@@ -29,7 +31,6 @@ try:
 
         image_resized = cv2.resize(image, (1280, 720))
         
-        
         cv2.circle(image_resized, points[0], 5, (0, 255, 255), -1)
         cv2.circle(image_resized, points[1], 5, (255, 0, 255), -1)
         cv2.circle(image_resized, points[2], 5, (255, 255, 0), -1)
@@ -41,8 +42,9 @@ try:
 
         now = time.time()
         
-        
+        # Create a new image applying Transformation Matrix
         dst = cv2.warpPerspective(image_resized, M, (600, 900))
+        
         print("M.shape: {}, delta: {}".format(M.shape, (time.time() - now) * 1000))
 
         cv2.imshow('mall', image_resized)
