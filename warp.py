@@ -21,6 +21,9 @@ try:
     M = cv2.getPerspectiveTransform(np.array(points, dtype=np.float32),
                                     np.array(dest, dtype=np.float32))
 
+    # Reference point in source coordinates
+    ref = (605, 73)
+
     while True:
         success, image  = cap.read()
 
@@ -35,6 +38,8 @@ try:
         cv2.circle(image_resized, points[1], 5, (255, 0, 255), -1)
         cv2.circle(image_resized, points[2], 5, (255, 255, 0), -1)
         cv2.circle(image_resized, points[3], 5, (0, 0, 255), -1)
+
+        cv2.circle(image_resized, ref, 5, (0, 165, 255), -1)
 
         for i in range(0, len(points)):
             j = i + 1 if i + 1 < len(points) else 0
