@@ -3,6 +3,8 @@ import numpy as np
 import sys
 import time
 
+# Image transformation script
+
 video = './mall.mp4'
 try:
     # Video Capturre
