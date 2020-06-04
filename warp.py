@@ -54,8 +54,7 @@ try:
         new_ref = cv2.perspectiveTransform(np.array([[ref]],  dtype='float64'), M)
         cv2.circle(dst, (int(new_ref[0][0][0]), int(new_ref[0][0][1])), 5, (0, 255, 0), -1)
         
-        
-        print("M.shape: {}, delta: {}".format(M.shape, (time.time() - now) * 1000))
+        print("delta: {}".format((time.time() - now) * 1000))
 
         cv2.imshow('mall', image_resized)
         cv2.imshow('dest', dst)
