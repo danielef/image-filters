@@ -49,6 +49,11 @@ try:
         
         # Create a new image applying Transformation Matrix
         dst = cv2.warpPerspective(image_resized, M, (600, 900))
+
+        # Reference point proyection in new plane
+        new_ref = cv2.perspectiveTransform(np.array([[ref]],  dtype='float64'), M)
+        cv2.circle(dst, (int(new_ref[0][0][0]), int(new_ref[0][0][1])), 5, (0, 255, 0), -1)
+        
         
         print("M.shape: {}, delta: {}".format(M.shape, (time.time() - now) * 1000))
 
