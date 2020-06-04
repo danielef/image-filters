@@ -59,7 +59,6 @@ try:
         cv2.imshow('mall', image_resized)
         cv2.imshow('dest', dst)
         
-
         if cv2.waitKey(100) == 0x1b:
             print('ESC pressed. Exiting ...')
             break
