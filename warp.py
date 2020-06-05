@@ -10,6 +10,7 @@ import time
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--video', required=True, help='Input directory to take images')
+    parser.add_argument('-c', '--config', required=False, help='YAML points file'
 
     args = parser.parse_args()
 
